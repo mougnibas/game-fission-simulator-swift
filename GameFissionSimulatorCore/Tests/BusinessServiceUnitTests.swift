@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "LotteryCore" class.
+/// Unit tests of "BusinessService" class.
 final class BusinessServiceUnitTests: XCTestCase {
 
     /// Test an initialization with the default no arg constructor.
