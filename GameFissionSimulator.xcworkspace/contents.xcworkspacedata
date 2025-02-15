@@ -7,4 +7,7 @@
    <FileRef
       location = "group:.gitignore">
    </FileRef>
+   <FileRef
+      location = "group:GameFissionSimulatorCore">
+   </FileRef>
 </Workspace>
