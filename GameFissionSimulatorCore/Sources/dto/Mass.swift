@@ -22,16 +22,8 @@ public struct Mass: CustomStringConvertible, Equatable {
     /// Initialize the struct with a 1.0 default value.
     public init() {
 
-        // Set the internal value.
-        value = 1.0
-
-        // Set "description" and "formated".
-        formated = value.formatted(
-            .number
-                .grouping(.automatic)
-                .locale(Locale(identifier: "en_US_POSIX"))
-                .precision(.integerAndFractionLength(integer: 1, fraction: 8)))
-        description = "Mass(value='\(formated)')"
+        // Call the private constructor
+        self.init(value: 1.0)
     }
 
     /// Initialize the struct with the given value.
@@ -44,6 +36,16 @@ public struct Mass: CustomStringConvertible, Equatable {
         if value < 0.0 || value > 1.0 {
             throw AppError(kind: .invalidInput, message: "Mass value must be between 0.0 and 1.0.")
         }
+
+        // Call the private constructor
+        self.init(value: value)
+    }
+
+    /// Initialize the struct without any safety check.
+    ///
+    /// - Parameters :
+    ///     - value : The value (any float is valid).
+    private init (value: Float) {
 
         // Set the internal value.
         self.value = value
