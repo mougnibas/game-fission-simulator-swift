@@ -12,7 +12,7 @@ import Testing
 /// Unit tests of "Mass" struct.
 struct MassUnitTests {
 
-    @Test
+    @Test("Default constructor have 1.0 value")
     func defaultConstructorHaveOnePointZeroValue() throws {
 
         // Arrange.
@@ -26,12 +26,12 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointZeroHaveThisValue() throws {
+    @Test("Full constructor with this given value have this value", arguments: [0.0, 0.5, 1.0])
+    func fullConstructorWithZeroPointZeroHaveThisValue(_ value: Float) throws {
 
         // Arrange.
-        let expected: Float = 0.0
-        let mass: Mass = try Mass(0.0)
+        let expected: Float = value
+        let mass: Mass = try Mass(value)
 
         // Act.
         let actual: Float = mass.value
@@ -40,34 +40,7 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointFiveHaveZeroValue() throws {
-
-        // Arrange.
-        let expected: Float = 0.5
-        let mass: Mass = try Mass(0.5)
-
-        // Act.
-        let actual: Float = mass.value
-
-        // Assert.
-        #expect(actual == expected)    }
-
-    @Test
-    func fullConstructorWithOnePointZeroHaveOnePointZeroValue() throws {
-
-        // Arrange.
-        let expected: Float = 1.0
-        let mass: Mass = try Mass(1.0)
-
-        // Act.
-        let actual: Float = mass.value
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
+    @Test("Default constructor have this formated")
     func defaultConstructorHaveThisFormated() throws {
 
         // Arrange.
@@ -81,12 +54,13 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointZeroHaveThisFormated() throws {
+    @Test("Full constructor with those values have those formated", arguments: zip(
+        [0.0, 0.5, 1.0],
+        ["0.00000000", "0.50000000", "1.00000000"]))
+    func fullConstructorWithThisValueHaveThisFormated(_ value: Float, _ expected: String) throws {
 
         // Arrange.
-        let expected: String = "0.00000000"
-        let mass: Mass = try Mass(0.0)
+        let mass: Mass = try Mass(value)
 
         // Act.
         let actual: String = mass.formated
@@ -95,35 +69,7 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointFiveHaveThisFormated() throws {
-
-        // Arrange.
-        let expected: String = "0.50000000"
-        let mass: Mass = try Mass(0.5)
-
-        // Act.
-        let actual: String = mass.formated
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullConstructorWithOnePointZeroHaveThisFormated() throws {
-
-        // Arrange.
-        let expected: String = "1.00000000"
-        let mass: Mass = try Mass(1.0)
-
-        // Act.
-        let actual: String = mass.formated
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
+    @Test("Default constructor have this description")
     func defaultConstructorHaveThisDescription() throws {
 
         // Arrange.
@@ -137,12 +83,13 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointZeroHaveThisDescription() throws {
+    @Test("Full constructor with this values have this description", arguments: zip(
+        [0.0, 0.5, 1.0],
+        ["Mass(value='0.00000000')", "Mass(value='0.50000000')", "Mass(value='1.00000000')"]))
+    func fullConstructorWithThisValuesHaveThisDescription(_ value: Float, _ expected: String) throws {
 
         // Arrange.
-        let expected: String = "Mass(value='0.00000000')"
-        let mass: Mass = try Mass(0.0)
+        let mass: Mass = try Mass(value)
 
         // Act.
         let actual: String = mass.description
@@ -151,54 +98,17 @@ struct MassUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullConstructorWithZeroPointFiveHaveThisDescription() throws {
-
-        // Arrange.
-        let expected: String = "Mass(value='0.50000000')"
-        let mass: Mass = try Mass(0.5)
-
-        // Act.
-        let actual: String = mass.description
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullConstructorWithOnePointZeroHaveThisDescription() throws {
-
-        // Arrange.
-        let expected: String = "Mass(value='1.00000000')"
-        let mass: Mass = try Mass(1.0)
-
-        // Act.
-        let actual: String = mass.description
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullConstructorWithOnePointOneShouldThrowError() throws {
+    @Test("Full constructor with this values should throw error", arguments: [1.1, -0.1])
+    func fullConstructorWithThisValueShouldThrowError(_ value: Float) throws {
 
         // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try Mass(1.1) }
+        #expect(throws: (any Error).self) { try Mass(value) }
     }
 
-    @Test
-    func fullConstructorWithMinusZeroPointOneShouldThrowError() throws {
-
-        // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try Mass(-0.1) }
-    }
-
-    @Test
-    func thoseAreEquals() throws {
-
-        // Arrange.
-        let massOne: Mass = try Mass(1.0)
-        let massTwo: Mass = try Mass(1.0)
+    @Test("Equals", arguments: zip(
+        [try Mass(0.0), try Mass(0.5), try Mass(1.0)],
+        [try Mass(0.0), try Mass(0.5), try Mass(1.0)]))
+    func thoseAreEquals(_ massOne: Mass, _ massTwo: Mass) throws {
 
         // Act.
         let actual: Bool = massOne == massTwo
@@ -207,12 +117,10 @@ struct MassUnitTests {
         #expect(actual == true)
     }
 
-    @Test
-    func thoseAreNotEquals() throws {
-
-        // Arrange.
-        let massOne: Mass = try Mass(0.0)
-        let massTwo: Mass = try Mass(1.0)
+    @Test("Not equals", arguments: zip(
+        [try Mass(0.0), try Mass(0.2), try Mass(1.0)],
+        [try Mass(0.1), try Mass(0.3), try Mass(0.9)]))
+    func thoseAreNotEquals(_ massOne: Mass, _ massTwo: Mass) throws {
 
         // Act.
         let actual: Bool = massOne == massTwo

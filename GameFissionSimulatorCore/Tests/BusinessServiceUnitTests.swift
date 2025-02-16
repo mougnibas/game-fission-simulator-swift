@@ -12,7 +12,7 @@ import Testing
 /// Unit tests of "BusinessService" class.
 struct BusinessServiceUnitTests {
 
-    @Test
+    @Test("No arg constructor do nothing wrong")
     func noArgConstructor() throws {
 
         // Arrange (nothing to do, really).
@@ -24,7 +24,7 @@ struct BusinessServiceUnitTests {
         #expect(service != nil)
     }
 
-    @Test
+    @Test("Full constructor do nothing wrong")
     func fullConstructor() throws {
 
         // Arrange.
@@ -37,7 +37,7 @@ struct BusinessServiceUnitTests {
         #expect(service != nil)
     }
 
-    @Test
+    @Test("Description is this")
     func description() throws {
 
         // Arrange.

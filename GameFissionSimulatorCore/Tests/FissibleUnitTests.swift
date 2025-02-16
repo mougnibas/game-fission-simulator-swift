@@ -12,7 +12,7 @@ import Testing
 /// Unit tests of "Fissible" struct.
 struct FissibleUnitTests {
 
-    @Test
+    @Test("No arg constructor have this mass")
     func noArgConstructorHaveThisMass() throws {
 
         // Arrange.
@@ -26,12 +26,11 @@ struct FissibleUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullArgConstructorWithZeroPointZeroHaveThisMass() throws {
+    @Test("Full constructor with this mass have this mass", arguments: [try Mass(0.0), try Mass(0.5), try Mass(1.0)])
+    func fullArgConstructorWithThisMassHaveThisMass(_ expected: Mass) throws {
 
         // Arrange.
-        let expected: Mass = try Mass(0.0)
-        let fissible: Fissible = Fissible( try Mass(0.0) )
+        let fissible: Fissible = Fissible( expected )
 
         // Act.
         let actual: Mass = fissible.mass
@@ -40,35 +39,7 @@ struct FissibleUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullArgConstructorWithZeroPointFiveHaveThisMass() throws {
-
-        // Arrange.
-        let expected: Mass = try Mass(0.5)
-        let fissible: Fissible = Fissible( try Mass(0.5) )
-
-        // Act.
-        let actual: Mass = fissible.mass
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullArgConstructorWithOnePointZeroHaveThisMass() throws {
-
-        // Arrange.
-        let expected: Mass = try Mass(1.0)
-        let fissible: Fissible = Fissible( try Mass(1.0) )
-
-        // Act.
-        let actual: Mass = fissible.mass
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
+    @Test("No arg constructor have this description")
     func noArgConstructorHaveThisDescription() throws {
 
         // Arrange.
@@ -82,40 +53,14 @@ struct FissibleUnitTests {
         #expect(actual == expected)
     }
 
-    @Test
-    func fullArgConstructorWithZeroPointZeroHaveThisDescription() throws {
+    @Test("Full constructor with this mass have this description", arguments: zip(
+        [try Mass(0.0), try Mass(0.5), try Mass(1.0)],
+        ["Fissible(mass='0.00000000')", "Fissible(mass='0.50000000')", "Fissible(mass='1.00000000')"]))
+    func fullArgConstructorWithMassHaveThisDescription(_ mass: Mass, _ description: String) throws {
 
         // Arrange.
-        let expected: String = "Fissible(mass='0.00000000')"
-        let fissible: Fissible = Fissible( try Mass(0.0) )
-
-        // Act.
-        let actual: String = fissible.description
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullArgConstructorWithZeroPointFiveHaveThisDescription() throws {
-
-        // Arrange.
-        let expected: String = "Fissible(mass='0.50000000')"
-        let fissible: Fissible = Fissible( try Mass(0.5) )
-
-        // Act.
-        let actual: String = fissible.description
-
-        // Assert.
-        #expect(actual == expected)
-    }
-
-    @Test
-    func fullArgConstructorWithOnePointZeroHaveThisDescription() throws {
-
-        // Arrange.
-        let expected: String = "Fissible(mass='1.00000000')"
-        let fissible: Fissible = Fissible( try Mass(1.0) )
+        let expected: String = description
+        let fissible: Fissible = Fissible(mass)
 
         // Act.
         let actual: String = fissible.description
