@@ -10,6 +10,7 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Mass" struct.
+@Suite("Mass unit test")
 struct MassUnitTests {
 
     @Test("Default constructor have 1.0 value")

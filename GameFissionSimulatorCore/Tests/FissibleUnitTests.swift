@@ -10,6 +10,7 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Fissible" struct.
+@Suite("Fissible unit test")
 struct FissibleUnitTests {
 
     @Test("No arg constructor have this mass")

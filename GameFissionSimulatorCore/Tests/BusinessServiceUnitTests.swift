@@ -10,6 +10,7 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "BusinessService" class.
+@Suite("BusinessService unit test")
 struct BusinessServiceUnitTests {
 
     @Test("No arg constructor do nothing wrong")
