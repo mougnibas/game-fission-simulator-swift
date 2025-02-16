@@ -6,13 +6,14 @@
 // of this license document, but changing it is not allowed.
 
 import Foundation
-import XCTest
+import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Fissible" struct.
-final class FissibleUnitTests: XCTestCase {
+struct FissibleUnitTests {
 
-    func testNoArgConstructorHaveThisMass() throws {
+    @Test
+    func noArgConstructorHaveThisMass() throws {
 
         // Arrange.
         let expected: Mass = try Mass(1.0)
@@ -22,10 +23,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: Mass = fissible.mass
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithZeroPointZeroHaveThisMass() throws {
+    @Test
+    func fullArgConstructorWithZeroPointZeroHaveThisMass() throws {
 
         // Arrange.
         let expected: Mass = try Mass(0.0)
@@ -35,10 +37,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: Mass = fissible.mass
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithZeroPointFiveHaveThisMass() throws {
+    @Test
+    func fullArgConstructorWithZeroPointFiveHaveThisMass() throws {
 
         // Arrange.
         let expected: Mass = try Mass(0.5)
@@ -48,10 +51,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: Mass = fissible.mass
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithOnePointZeroHaveThisMass() throws {
+    @Test
+    func fullArgConstructorWithOnePointZeroHaveThisMass() throws {
 
         // Arrange.
         let expected: Mass = try Mass(1.0)
@@ -61,10 +65,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: Mass = fissible.mass
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testNoArgConstructorHaveThisDescription() throws {
+    @Test
+    func noArgConstructorHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Fissible(mass='1.00000000')"
@@ -74,10 +79,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: String = fissible.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithZeroPointZeroHaveThisDescription() throws {
+    @Test
+    func fullArgConstructorWithZeroPointZeroHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Fissible(mass='0.00000000')"
@@ -87,10 +93,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: String = fissible.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithZeroPointFiveHaveThisDescription() throws {
+    @Test
+    func fullArgConstructorWithZeroPointFiveHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Fissible(mass='0.50000000')"
@@ -100,10 +107,11 @@ final class FissibleUnitTests: XCTestCase {
         let actual: String = fissible.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullArgConstructorWithOnePointZeroHaveThisDescription() throws {
+    @Test
+    func fullArgConstructorWithOnePointZeroHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Fissible(mass='1.00000000')"
@@ -113,6 +121,6 @@ final class FissibleUnitTests: XCTestCase {
         let actual: String = fissible.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 }

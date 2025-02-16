@@ -6,14 +6,14 @@
 // of this license document, but changing it is not allowed.
 
 import Foundation
-import XCTest
+import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "BusinessService" class.
-final class BusinessServiceUnitTests: XCTestCase {
+struct BusinessServiceUnitTests {
 
-    /// Test an initialization with the default no arg constructor.
-    func testNoArgConstructor() throws {
+    @Test
+    func noArgConstructor() throws {
 
         // Arrange (nothing to do, really).
 
@@ -21,11 +21,11 @@ final class BusinessServiceUnitTests: XCTestCase {
         let service: BusinessService = BusinessService()
 
         // Assert.
-        XCTAssertNotNil(service)
+        #expect(service != nil)
     }
 
-    /// Test an initialization with the full constructor
-    func testFullConstructor() throws {
+    @Test
+    func fullConstructor() throws {
 
         // Arrange.
         let rng: RandomNumberGenerator = SystemRandomNumberGenerator()
@@ -34,11 +34,11 @@ final class BusinessServiceUnitTests: XCTestCase {
         let service: BusinessService = BusinessService(rng)
 
         // Assert.
-        XCTAssertNotNil(service)
+        #expect(service != nil)
     }
 
-    /// Test the description member.
-    func testDescription() throws {
+    @Test
+    func description() throws {
 
         // Arrange.
         let service: BusinessService = BusinessService()
@@ -48,6 +48,6 @@ final class BusinessServiceUnitTests: XCTestCase {
         let actual: String = service.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 }

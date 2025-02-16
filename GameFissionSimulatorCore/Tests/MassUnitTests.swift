@@ -6,13 +6,14 @@
 // of this license document, but changing it is not allowed.
 
 import Foundation
-import XCTest
+import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Mass" struct.
-final class MassUnitTests: XCTestCase {
+struct MassUnitTests {
 
-    func testDefaultConstructorHaveOnePointZeroValue() throws {
+    @Test
+    func defaultConstructorHaveOnePointZeroValue() throws {
 
         // Arrange.
         let expected: Float = 1.0
@@ -22,10 +23,11 @@ final class MassUnitTests: XCTestCase {
         let actual: Float = mass.value
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointZeroHaveThisValue() throws {
+    @Test
+    func fullConstructorWithZeroPointZeroHaveThisValue() throws {
 
         // Arrange.
         let expected: Float = 0.0
@@ -35,10 +37,11 @@ final class MassUnitTests: XCTestCase {
         let actual: Float = mass.value
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointFiveHaveZeroValue() throws {
+    @Test
+    func fullConstructorWithZeroPointFiveHaveZeroValue() throws {
 
         // Arrange.
         let expected: Float = 0.5
@@ -48,10 +51,10 @@ final class MassUnitTests: XCTestCase {
         let actual: Float = mass.value
 
         // Assert.
-        XCTAssertEqual(actual, expected)
-    }
+        #expect(actual == expected)    }
 
-    func testFullConstructorWithOnePointZeroHaveOnePointZeroValue() throws {
+    @Test
+    func fullConstructorWithOnePointZeroHaveOnePointZeroValue() throws {
 
         // Arrange.
         let expected: Float = 1.0
@@ -61,10 +64,11 @@ final class MassUnitTests: XCTestCase {
         let actual: Float = mass.value
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testDefaultConstructorHaveThisFormated() throws {
+    @Test
+    func defaultConstructorHaveThisFormated() throws {
 
         // Arrange.
         let expected: String = "1.00000000"
@@ -74,10 +78,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.formated
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointZeroHaveThisFormated() throws {
+    @Test
+    func fullConstructorWithZeroPointZeroHaveThisFormated() throws {
 
         // Arrange.
         let expected: String = "0.00000000"
@@ -87,10 +92,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.formated
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointFiveHaveThisFormated() throws {
+    @Test
+    func fullConstructorWithZeroPointFiveHaveThisFormated() throws {
 
         // Arrange.
         let expected: String = "0.50000000"
@@ -100,10 +106,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.formated
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithOnePointZeroHaveThisFormated() throws {
+    @Test
+    func fullConstructorWithOnePointZeroHaveThisFormated() throws {
 
         // Arrange.
         let expected: String = "1.00000000"
@@ -113,10 +120,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.formated
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testDefaultConstructorHaveThisDescription() throws {
+    @Test
+    func defaultConstructorHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Mass(value='1.00000000')"
@@ -126,10 +134,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointZeroHaveThisDescription() throws {
+    @Test
+    func fullConstructorWithZeroPointZeroHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Mass(value='0.00000000')"
@@ -139,10 +148,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithZeroPointFiveHaveThisDescription() throws {
+    @Test
+    func fullConstructorWithZeroPointFiveHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Mass(value='0.50000000')"
@@ -152,10 +162,11 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithOnePointZeroHaveThisDescription() throws {
+    @Test
+    func fullConstructorWithOnePointZeroHaveThisDescription() throws {
 
         // Arrange.
         let expected: String = "Mass(value='1.00000000')"
@@ -165,22 +176,25 @@ final class MassUnitTests: XCTestCase {
         let actual: String = mass.description
 
         // Assert.
-        XCTAssertEqual(actual, expected)
+        #expect(actual == expected)
     }
 
-    func testFullConstructorWithOnePointOneShouldThrowError() throws {
+    @Test
+    func fullConstructorWithOnePointOneShouldThrowError() throws {
 
         // Arrange, Act and Assert
-        XCTAssertThrowsError(try Mass(1.1))
+        #expect(throws: (any Error).self) { try Mass(1.1) }
     }
 
-    func testFullConstructorWithMinusZeroPointOneShouldThrowError() throws {
+    @Test
+    func fullConstructorWithMinusZeroPointOneShouldThrowError() throws {
 
         // Arrange, Act and Assert
-        XCTAssertThrowsError(try Mass(-0.1))
+        #expect(throws: (any Error).self) { try Mass(-0.1) }
     }
 
-    func testThoseAreEquals() throws {
+    @Test
+    func thoseAreEquals() throws {
 
         // Arrange.
         let massOne: Mass = try Mass(1.0)
@@ -190,10 +204,11 @@ final class MassUnitTests: XCTestCase {
         let actual: Bool = massOne == massTwo
 
         // Assert.
-        XCTAssertTrue(actual)
+        #expect(actual == true)
     }
 
-    func testThoseAreNotEquals() throws {
+    @Test
+    func thoseAreNotEquals() throws {
 
         // Arrange.
         let massOne: Mass = try Mass(0.0)
@@ -203,6 +218,6 @@ final class MassUnitTests: XCTestCase {
         let actual: Bool = massOne == massTwo
 
         // Assert.
-        XCTAssertFalse(actual)
+        #expect(actual == false)
     }
 }
