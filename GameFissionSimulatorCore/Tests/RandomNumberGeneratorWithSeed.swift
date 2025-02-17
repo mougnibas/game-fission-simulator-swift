@@ -8,6 +8,12 @@
 import Foundation
 
 /// A private implementation for a RandomNumberGenerator, to be used with unit tests.
+///
+/// /// WARNING
+/// This struct use `srand48(int)` for seeding and `drand48()` for randomness.
+/// This is struct is not thread-safe. Usage in multi-threads environement (Swift Test for example)
+/// will result in incorrect behavior.
+/// Be sure to "serialize" new struct call, because any new struct will affect subsequent call to next.
 public struct RandomNumberGeneratorWithSeed: RandomNumberGenerator {
 
     /// Initialize the class with this seed.
