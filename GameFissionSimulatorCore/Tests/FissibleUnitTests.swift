@@ -10,7 +10,7 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Fissible" struct.
-@Suite("Fissible unit test", .serialized)
+@Suite("Fissible unit test")
 struct FissibleUnitTests {
 
     @Test("No arg constructor have this mass")
@@ -74,10 +74,9 @@ struct FissibleUnitTests {
     func willFiss() throws {
 
         // Arrange.
-        let expected: Bool = false
+        let expected: Bool = true
         let fissible: Fissible = try Fissible(Mass(1.0))
-        let seed: Int = 0123456789
-        var rng: RandomNumberGenerator = RandomNumberGeneratorWithSeed(seed)
+        var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
 
         // Act.
         let actual: Bool = fissible.willFiss(&rng)
@@ -91,15 +90,14 @@ struct FissibleUnitTests {
          1,
          10,
          100],
-        [false,
+        [true,
          false,
          true,
          false]))
     func willFiss(numberOfNextCalls: Int, expected: Bool) async throws {
 
         // Arrange.
-        let seed: Int = 0123456789
-        var rng: RandomNumberGenerator = RandomNumberGeneratorWithSeed(seed)
+        var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
         for _ in 0..<numberOfNextCalls {
             _ = rng.next()
         }

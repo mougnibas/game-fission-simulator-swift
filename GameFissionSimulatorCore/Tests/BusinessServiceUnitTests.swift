@@ -19,9 +19,8 @@ struct BusinessServiceUnitTests {
     /// Initialize the struct (called each time before a test function is called).
     init() throws {
 
-        // A Random number generator with seed.
-        let seed: Int = 0123456789
-        let rng: RandomNumberGenerator = RandomNumberGeneratorWithSeed(seed)
+        // A not so random number generator.
+        let rng: RandomNumberGenerator = FixedRandomNumberGenerator()
 
         // Instantiate the service with the custom rng.
         service = BusinessService(rng)

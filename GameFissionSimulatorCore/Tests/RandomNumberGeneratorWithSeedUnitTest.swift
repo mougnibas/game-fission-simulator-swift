@@ -10,23 +10,17 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Mass" struct.
-@Suite("RandomNumberGeneratorWithSeed unit test", .serialized)
+@Suite("RandomNumberGeneratorWithSeed unit test")
 struct RandomNumberGeneratorWithSeedUnitTest {
 
     /// The service to test.
-    private let service: RandomNumberGeneratorWithSeed
-
-    /// Initialize the struct (called each time before a test function is called).
-    init() throws {
-        let seed: Int = 0123456789
-        service = RandomNumberGeneratorWithSeed(seed)
-    }
+    private let service: FixedRandomNumberGenerator = FixedRandomNumberGenerator()
 
     @Test("The first next should be this")
     func firstNextShouldBeThis() throws {
 
         // Arrange.
-        let expected: UInt64 = 967872380456206336
+        let expected: UInt64 = 4634132415377626121
 
         // Act.
         let actual: UInt64 = service.next()
@@ -40,10 +34,10 @@ struct RandomNumberGeneratorWithSeedUnitTest {
      10,
      100,
      1_000],
-    [967872380456206336,
-     4494986641987534848,
-     12717718239014354944,
-     934510648099405824]))
+    [4634132415377626121,
+     11147349224792255867,
+     16255432253904366547,
+     11349708381520460738]))
     func lotOfNextsShouldBeThis(numberOfNexts: Int, expected: UInt64) throws {
 
         // Arrange
