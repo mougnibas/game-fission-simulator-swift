@@ -9,8 +9,8 @@ import Foundation
 import Testing
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "Mass" struct.
-@Suite("RandomNumberGeneratorWithSeed unit test")
+/// Unit tests of "FixedRandomNumberGenerator" class.
+@Suite("FixedRandomNumberGenerator unit test")
 struct RandomNumberGeneratorWithSeedUnitTest {
 
     /// The service to test.
