@@ -16,6 +16,22 @@ public class BusinessService: CustomStringConvertible {
     /// A string description of the class.
     public var description: String
 
+    /// All fissibles of the class.
+    private var fissibles: [Fissible] = []
+
+    /// Public read only counter of fissibles.
+    public var fissibleCount: Int {
+        fissibles.count
+    }
+
+    /// Internal tick counter.
+    private var _tickCount: Int = 0
+
+    /// Public read only counter of ticks.
+    public var tickCount: Int {
+        _tickCount
+    }
+
     /// Initialize the class with a default random number generator.
     public init() {
         randomNumberGenerator = SystemRandomNumberGenerator()
@@ -29,5 +45,11 @@ public class BusinessService: CustomStringConvertible {
     public init( _ randomNumberGenerator: RandomNumberGenerator) {
         self.randomNumberGenerator = randomNumberGenerator
         description = "BusinessService()"
+    }
+
+    /// Make something happen.
+    /// This is a classic feature in game engine.
+    public func tick() {
+        _tickCount += 1
     }
 }

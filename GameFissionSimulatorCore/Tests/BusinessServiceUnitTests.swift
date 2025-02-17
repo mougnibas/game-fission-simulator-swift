@@ -13,12 +13,24 @@ import Testing
 @Suite("BusinessService unit test")
 struct BusinessServiceUnitTests {
 
+    /// The service to test.
+    private let service: BusinessService
+
+    /// Initialize the struct (called each time before a test function is called).
+    init() throws {
+
+        // A Random number generator with seed.
+        let seed: Int = 0123456789
+        let rng: RandomNumberGenerator = RandomNumberGeneratorWithSeed(seed)
+
+        // Instantiate the service with the custom rng.
+        service = BusinessService(rng)
+    }
+
     @Test("No arg constructor do nothing wrong")
     func noArgConstructor() throws {
 
-        // Arrange (nothing to do, really).
-
-        // Act.
+        // Arrange and Act.
         let service: BusinessService = BusinessService()
 
         // Assert.
@@ -28,11 +40,8 @@ struct BusinessServiceUnitTests {
     @Test("Full constructor do nothing wrong")
     func fullConstructor() throws {
 
-        // Arrange.
-        let rng: RandomNumberGenerator = SystemRandomNumberGenerator()
-
-        // Act.
-        let service: BusinessService = BusinessService(rng)
+        // Service instance is already created.
+        // Nothing to do.
 
         // Assert.
         #expect(service != nil)
@@ -42,11 +51,43 @@ struct BusinessServiceUnitTests {
     func description() throws {
 
         // Arrange.
-        let service: BusinessService = BusinessService()
         let expected: String = "BusinessService()"
 
         // Act.
         let actual: String = service.description
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Fissible count")
+    func fissibleCount() async throws {
+
+        // Arrange.
+        let expected: Int = 0
+
+        // Act.
+        let actual: Int = service.fissibleCount
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Tick function", arguments: [
+        0,
+        1,
+        100,
+        1_000])
+    func tick(count: Int) async throws {
+
+        // Arrange
+        let expected: Int = count
+        for _ in 0..<count {
+            service.tick()
+        }
+
+        // Act
+        let actual: Int = service.tickCount
 
         // Assert.
         #expect(actual == expected)
