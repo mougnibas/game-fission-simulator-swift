@@ -19,14 +19,9 @@ public struct Fissible: CustomStringConvertible {
     /// 20% probability of fission.
     private let probability: Float = 0.2
 
-    /// Initialize the struct with a default mass of 1.0.
+    /// Initialize the struct with a default mass of 1.0;
     public init() {
-
-        // Default mass
-        mass = Mass()
-
-        // Create the description
-        description = "Fissible(mass='\(mass.formated)')"
+        self.init(Mass())
     }
 
     /// Initialize the struct with a given mass.
@@ -46,7 +41,7 @@ public struct Fissible: CustomStringConvertible {
     /// There is a fixed percentage of probability.
     ///
     /// - Parameters :
-    ///     - rng : The random number generator to use.
+    ///     - rng : Random number generator to use.
     public func willFiss(_ rng: inout RandomNumberGenerator) -> Bool {
 
         // Dice roll
@@ -54,6 +49,20 @@ public struct Fissible: CustomStringConvertible {
 
         // Is it a success ?
         let isSuccess: Bool = roll < probability
+
+        // Return the result
+        return isSuccess
+    }
+
+    /// Will this fissible be fissed ?
+    /// There is a fixed percentage of probability.
+    public func willFiss() -> Bool {
+
+        // Create a system RNG.
+        var rng: RandomNumberGenerator = SystemRandomNumberGenerator()
+
+        // Delegate the call
+        let isSuccess = willFiss(&rng)
 
         // Return the result
         return isSuccess

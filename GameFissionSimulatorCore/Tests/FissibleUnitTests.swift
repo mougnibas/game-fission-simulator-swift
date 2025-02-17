@@ -85,6 +85,22 @@ struct FissibleUnitTests {
         #expect(actual == expected)
     }
 
+    @Test("This should fiss using system RNG")
+    func willFissWithSystemRNG() throws {
+
+        // TODO Do a lot of dice roll to prove the 20% chance of hit.
+
+        // Arrange.
+        let expected: Bool = false
+        let fissible: Fissible = try Fissible(Mass(1.0))
+
+        // Act.
+        let actual: Bool = fissible.willFiss()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
     @Test("Reused RNG should change fissible result", arguments: zip(
         [0,
          1,
