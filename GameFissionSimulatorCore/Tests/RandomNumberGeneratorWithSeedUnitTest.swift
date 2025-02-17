@@ -10,7 +10,7 @@ import Testing
 @testable import GameFissionSimulatorCore
 
 /// Unit tests of "Mass" struct.
-@Suite("RandomNumberGeneratorWithSeed unit test")
+@Suite("RandomNumberGeneratorWithSeed unit test", .serialized)
 struct RandomNumberGeneratorWithSeedUnitTest {
 
     /// The service to test.
@@ -35,7 +35,7 @@ struct RandomNumberGeneratorWithSeedUnitTest {
         #expect(actual == expected)
     }
 
-    @Test("Lot of nexts should be this", .serialized, arguments: zip(
+    @Test("Lot of nexts should be this", arguments: zip(
     [0,
      10,
      100,
