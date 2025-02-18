@@ -15,6 +15,9 @@ public struct AppError: Error {
 
         /// Input is invalid.
         case invalidInput
+
+        /// Doing this will result into something being too small.
+        case tooSmall
     }
 
     /// Kind of error.

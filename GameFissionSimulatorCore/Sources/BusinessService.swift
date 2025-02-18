@@ -41,7 +41,7 @@ public class BusinessService: CustomStringConvertible {
     /// Initialize the class with a given random number generator.
     ///
     /// - Parameters :
-    ///   - randomNumberGenerator : The given random number generator (mainly for unit tests).
+    /// - randomNumberGenerator : The given random number generator (mainly for unit tests).
     public init( _ randomNumberGenerator: RandomNumberGenerator) {
         self.randomNumberGenerator = randomNumberGenerator
         description = "BusinessService()"

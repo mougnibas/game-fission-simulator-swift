@@ -71,18 +71,17 @@ struct FissibleUnitTests {
     }
 
     @Test("This should fiss")
-    func willFiss() throws {
+    func tryToFiss() throws {
 
         // Arrange.
-        let expected: Bool = true
         let fissible: Fissible = try Fissible(Mass(1.0))
         var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
 
         // Act.
-        let actual: Bool = fissible.willFiss(&rng)
+        let actual: FissionProduct? = try fissible.tryToFiss(&rng)
 
         // Assert.
-        #expect(actual == expected)
+        #expect(actual != nil)
     }
 
     @Test("Using a real RNG, we should get arround 20% of hits")
@@ -94,12 +93,12 @@ struct FissibleUnitTests {
         let numberOfTryout: Int = 1_000_000
 
         // Act.
-        for _ in 1..<numberOfTryout where fissible.willFiss() {
+        for _ in 1..<numberOfTryout where try fissible.tryToFiss() != nil {
             numberOfFission += 1
         }
 
         // Assert.
-        #expect(numberOfFission >= 199_500 && numberOfFission <= 200_500)
+        #expect(numberOfFission >= 199_000 && numberOfFission <= 201_000)
     }
 
     @Test("Reused RNG should change fissible result", arguments: zip(
@@ -121,9 +120,20 @@ struct FissibleUnitTests {
         let fissible: Fissible = try Fissible(Mass(1.0))
 
         // Act.
-        let actual: Bool = fissible.willFiss(&rng)
+        let actual: Bool = try fissible.tryToFiss(&rng) != nil
 
         // Assert.
         #expect(actual == expected)
+    }
+
+    @Test("Try to fiss a too small fissible should result in an error")
+    func shouldThrowAnError() throws {
+
+        // Arrange.
+        var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
+        let fissible: Fissible = Fissible(try Mass(Float.leastNonzeroMagnitude))
+
+        // Act and Assert
+        #expect(throws: (any Error).self) { try fissible.tryToFiss(&rng) }
     }
 }

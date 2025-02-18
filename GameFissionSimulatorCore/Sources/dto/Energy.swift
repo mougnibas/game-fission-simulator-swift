@@ -7,8 +7,8 @@
 
 import Foundation
 
-/// A mass, between 0.0 and 1.0.
-public struct Mass: CustomStringConvertible, Equatable {
+/// Energy released when fission occured.
+public struct Energy: CustomStringConvertible, Equatable {
 
     /// The  value of the mass.
     public let value: Float
@@ -29,12 +29,12 @@ public struct Mass: CustomStringConvertible, Equatable {
     /// Initialize the struct with the given value.
     ///
     /// - Parameters :
-    /// - value : The value of the mass, between 0.0 and 1.0.
+    ///   - value : The value of the energy, between 0.0 and 1.0.
     public init( _ value: Float) throws {
 
         // Test if the value is between 0.0 and 1.0.
         if value < 0.0 || value > 1.0 {
-            throw AppError(kind: .invalidInput, message: "Mass value must be between 0.0 and 1.0.")
+            throw AppError(kind: .invalidInput, message: "Energie value must be between 0.0 and 1.0.")
         }
 
         // Call the private constructor
@@ -44,7 +44,7 @@ public struct Mass: CustomStringConvertible, Equatable {
     /// Initialize the struct without any safety check.
     ///
     /// - Parameters :
-    /// - value : The value (any float is valid).
+    ///   - value : The value (any float is valid).
     private init (value: Float) {
 
         // Set the internal value.
@@ -58,6 +58,6 @@ public struct Mass: CustomStringConvertible, Equatable {
                 .precision(.integerAndFractionLength(integer: 1, fraction: 8)))
 
         // Set "description".
-        description = "Mass(value='\(formated)')"
+        description = "Energy(value='\(formated)')"
     }
 }
