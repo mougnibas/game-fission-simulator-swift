@@ -17,7 +17,7 @@ public class BusinessService: CustomStringConvertible {
     public var description: String
 
     /// All fissibles of the class.
-    private var fissibles: [Fissible] = []
+    private var fissibles: [Fissible] = [ Fissible() ]
 
     /// Public read only counter of fissibles.
     public var fissibleCount: Int {
@@ -50,6 +50,8 @@ public class BusinessService: CustomStringConvertible {
     /// Make something happen.
     /// This is a classic feature in game engine.
     public func tick() {
+
+        // Increment tick counter
         _tickCount += 1
     }
 }

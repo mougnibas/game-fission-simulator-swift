@@ -19,6 +19,9 @@ public struct FissionProduct: CustomStringConvertible {
     /// Released energy.
     public let energy: Energy
 
+    /// Neutrons created.
+    public let neutron: [ Neutron ]
+
     /// A string description of the class.
     public let description: String
 
@@ -34,6 +37,7 @@ public struct FissionProduct: CustomStringConvertible {
         self.fissibleA = fissibleA
         self.fissibleB = fissibleB
         self.energy = energy
+        self.neutron = [ Neutron(), Neutron(), Neutron()]
 
         // Create the description
         description = "FissionProduct(fissibleA='\(fissibleA)', fissibleB='\(fissibleB)', energy='\(energy)')"

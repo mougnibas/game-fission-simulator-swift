@@ -63,7 +63,7 @@ struct BusinessServiceUnitTests {
     func fissibleCount() async throws {
 
         // Arrange.
-        let expected: Int = 0
+        let expected: Int = 1
 
         // Act.
         let actual: Int = service.fissibleCount
