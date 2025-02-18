@@ -13,11 +13,11 @@ import Testing
 @Suite("Energy unit test")
 struct EnergyUnitTests {
 
-    @Test("Default constructor have 1.0 value")
+    @Test("Default constructor have 0.0 value")
     func defaultConstructorHaveOnePointZeroValue() throws {
 
         // Arrange.
-        let expected: Float = 1.0
+        let expected: Float = 0.0
         let energy: Energy = Energy()
 
         // Act.
@@ -45,7 +45,7 @@ struct EnergyUnitTests {
     func defaultConstructorHaveThisFormated() throws {
 
         // Arrange.
-        let expected: String = "1.00000000"
+        let expected: String = "0.00000000"
         let energy: Energy = Energy()
 
         // Act.
@@ -74,7 +74,7 @@ struct EnergyUnitTests {
     func defaultConstructorHaveThisDescription() throws {
 
         // Arrange.
-        let expected: String = "Energy(value='1.00000000')"
+        let expected: String = "Energy(value='0.00000000')"
         let energy: Energy = Energy()
 
         // Act.

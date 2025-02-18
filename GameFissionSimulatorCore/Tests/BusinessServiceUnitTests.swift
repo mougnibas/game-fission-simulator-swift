@@ -92,14 +92,27 @@ struct BusinessServiceUnitTests {
         #expect(actual == expected)
     }
 
-    @Test("Add a neutron, then count them")
-    func countNeutronOnNewlyCreatedSystem() throws {
+    @Test("Create a new system, then count the neutrons")
+    func createANewSystemThenCountTheNeutron() throws {
 
         // Arrange.
         let expected: Int = 0
 
         // Act.
         let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, then count the energy")
+    func createANewSystemThenCountTheEnergy() throws {
+
+        // Arrange.
+        let expected: Energy = try Energy(0.0)
+
+        // Act.
+        let actual: Energy = service.getEnergy()
 
         // Assert.
         #expect(actual == expected)
@@ -130,6 +143,126 @@ struct BusinessServiceUnitTests {
             service.addNeutron()
         }
         let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Add some neutrons directly, then count them", arguments: [1, 10, 100])
+    func addNeutronsDirectlyThenCountThem(numberOfNeutronToAdd: Int) throws {
+
+        // Arrange.
+        let expected: Int = numberOfNeutronToAdd
+
+        // Act.
+        try service.addNeutron(numberOfNeutronToAdd)
+        let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Add zero neutron should rise an error")
+    func addingZeroNeutronShouldRiseAnError() throws {
+
+        // Arrange, Act and Assert
+        #expect(throws: (any Error).self) { try service.addNeutron(0) }
+    }
+
+    @Test("Add negative neutron should rise an error")
+    func addingNegativeNeutronShouldRiseAnError() throws {
+
+        // Arrange, Act and Assert
+        #expect(throws: (any Error).self) { try service.addNeutron(-1) }
+    }
+
+    @Test("Create a new system, add 8 neutrons, call tick, then count the fissibles")
+    func addEightNeutronsThenCallTickThenCountFissible() async throws {
+
+        // Arrange.
+        let expected: Int = 2
+        for _ in 1...8 {
+            service.addNeutron()
+        }
+        service.tick()
+
+        // Act.
+        let actual: Int = service.fissibleCount
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, add 8 neutrons, call tick, then count the energy")
+    func addEightNeutronsThenCallTickThenCountEnergy() async throws {
+
+        // Arrange.
+        let expected: Energy = try Energy(0.001)
+        for _ in 1...8 {
+            service.addNeutron()
+        }
+        service.tick()
+
+        // Act.
+        let actual: Energy = service.getEnergy()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, add 8 neutrons, call tick, then count the protons")
+    func addEightNeutronsThenCallTickThenCountProtons() async throws {
+
+        // Arrange.
+        let expected: Int = 3
+        for _ in 1...8 {
+            service.addNeutron()
+        }
+        service.tick()
+
+        // Act.
+        let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, add a few neutrons and call ticks a few times, then count the energy", arguments: zip(
+    [10,
+     20],
+    [try Energy(0.002),
+     try Energy(0.01)]))
+    func addNeutronAndCallTickAFewTimesThenCountEnergy(ticks: Int, expected: Energy) async throws {
+
+        // Arrange.
+        for _ in 1...ticks {
+            service.addNeutron()
+            service.tick()
+        }
+
+        // Act.
+        let actual: Energy = service.getEnergy()
+
+        // Assert.
+        // FIXME There is probably a rounding error here with 20 ticks in parameter.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, add 8 neutrons per ticks, repeat a given amout of times, then count the fissibles",
+          arguments: zip(
+        [10, 100, 200, 300, 400, 500],
+        [29, 85, 41, 18, 12, 0]))
+    func addEightNeutronParTickThenCallTickAGivenAmountOfTimesThenCountFissibles(
+        ticks: Int, expected: Int) async throws {
+
+        // Arrange.
+        for _ in 1...ticks {
+            try service.addNeutron(8)
+            service.tick()
+        }
+
+        // Act.
+        let actual: Int = service.fissibleCount
 
         // Assert.
         #expect(actual == expected)

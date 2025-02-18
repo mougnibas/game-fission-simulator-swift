@@ -8,7 +8,7 @@
 import Foundation
 
 /// A fissible nucleous.
-public struct Fissible: CustomStringConvertible {
+public struct Fissible: CustomStringConvertible, Equatable {
 
     /// 20% probability of fission.
     private static let probability: Float = 0.2

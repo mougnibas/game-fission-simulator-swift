@@ -23,7 +23,7 @@ public struct Energy: CustomStringConvertible, Equatable {
     public init() {
 
         // Call the private constructor
-        self.init(value: 1.0)
+        self.init(value: 0.0)
     }
 
     /// Initialize the struct with the given value.
