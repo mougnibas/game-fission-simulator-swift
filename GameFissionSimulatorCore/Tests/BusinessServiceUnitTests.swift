@@ -91,4 +91,47 @@ struct BusinessServiceUnitTests {
         // Assert.
         #expect(actual == expected)
     }
+
+    @Test("Add a neutron, then count them")
+    func countNeutronOnNewlyCreatedSystem() throws {
+
+        // Arrange.
+        let expected: Int = 0
+
+        // Act.
+        let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Add a neutron, then count them")
+    func addThenCountNeutrons() throws {
+
+        // Arrange.
+        let expected: Int = 1
+
+        // Act.
+        service.addNeutron()
+        let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Add some neutron, then count them", arguments: [1, 10, 100])
+    func addNeutronsThenCountThem(numberOfNeutronToAdd: Int) throws {
+
+        // Arrange.
+        let expected: Int = numberOfNeutronToAdd
+
+        // Act.
+        for _ in 0..<numberOfNeutronToAdd {
+            service.addNeutron()
+        }
+        let actual: Int = service.countNeutrons()
+
+        // Assert.
+        #expect(actual == expected)
+    }
 }

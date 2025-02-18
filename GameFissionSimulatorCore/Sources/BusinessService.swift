@@ -19,6 +19,9 @@ public class BusinessService: CustomStringConvertible {
     /// All fissibles of the class.
     private var fissibles: [Fissible] = [ Fissible() ]
 
+    /// Number of neutrons inside the system.
+    private var neutronCount: Int = 0
+
     /// Public read only counter of fissibles.
     public var fissibleCount: Int {
         fissibles.count
@@ -45,6 +48,18 @@ public class BusinessService: CustomStringConvertible {
     public init( _ randomNumberGenerator: RandomNumberGenerator) {
         self.randomNumberGenerator = randomNumberGenerator
         description = "BusinessService()"
+    }
+
+    /// Add a neutron into the system.
+    public func addNeutron() {
+        neutronCount += 1
+    }
+
+    /// Count the  number of neutron(s) inside the system.
+    ///
+    /// - Returns : The number of neutron(s) inside the system.
+    public func countNeutrons() -> Int {
+        return neutronCount
     }
 
     /// Make something happen.
