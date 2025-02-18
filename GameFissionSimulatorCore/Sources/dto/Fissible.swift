@@ -75,7 +75,7 @@ public struct Fissible: CustomStringConvertible {
                     try Energy(Fissible.energyValue))
             } catch {
                 // Something really go wrong here.
-                throw AppError(kind: .tooSmall, message: "This will result in a fissible too small")
+                throw AppError(kind: .tooSmall, message: "This will result in a too small fissible")
             }
         }
 
