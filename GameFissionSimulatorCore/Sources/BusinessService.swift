@@ -39,9 +39,8 @@ public class BusinessService: CustomStringConvertible {
     }
 
     /// Initialize the class with a default random number generator.
-    public init() {
-        randomNumberGenerator = SystemRandomNumberGenerator()
-        description = "BusinessService()"
+    public convenience init() {
+        self.init(SystemRandomNumberGenerator())
     }
 
     /// Initialize the class with a given random number generator.
