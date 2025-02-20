@@ -60,4 +60,16 @@ public struct Energy: CustomStringConvertible, Equatable {
         // Set "description".
         description = "Energy(value='\(formated)')"
     }
+
+    public static func == (lhs: Energy, rhs: Energy) -> Bool {
+        // `description` is used because there is issue with `value` (because of rounded float).
+        let result: Bool = lhs.description == rhs.description
+        return result
+    }
+
+    public static func != (lhs: Energy, rhs: Energy) -> Bool {
+        // `description` is used because there is issue with `value` (because of rounded float).
+        let result: Bool = lhs.description != rhs.description
+        return result
+    }
 }

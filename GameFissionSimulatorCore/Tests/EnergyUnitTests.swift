@@ -124,9 +124,9 @@ struct EnergyUnitTests {
     func thoseAreNotEquals(_ energyOne: Energy, _ energyTwo: Energy) throws {
 
         // Act.
-        let actual: Bool = energyOne == energyTwo
+        let actual: Bool = energyOne != energyTwo
 
         // Assert.
-        #expect(actual == false)
+        #expect(actual == true)
     }
 }

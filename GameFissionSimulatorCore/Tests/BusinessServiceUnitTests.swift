@@ -244,7 +244,6 @@ struct BusinessServiceUnitTests {
         let actual: Energy = service.getEnergy()
 
         // Assert.
-        // FIXME There is probably a rounding error here with 20 ticks in parameter.
         #expect(actual == expected)
     }
 

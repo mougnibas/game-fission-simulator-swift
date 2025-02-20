@@ -117,6 +117,7 @@ public class BusinessService: CustomStringConvertible {
                 } catch {
                     // Can't fiss it because it's already too small.
                     // Just drop it from the system and "restore" the neutron.
+                    // TODO OR add it into a "recycle" array, then make a bigger fissible from smaller ones.
                     fissibles.remove(at: fissibles.firstIndex(of: fissible)!)
                     neutronCount += 1
                 }
