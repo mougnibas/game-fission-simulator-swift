@@ -249,8 +249,8 @@ struct BusinessServiceUnitTests {
 
     @Test("Create a new system, add 8 neutrons per ticks, repeat a given amout of times, then count the fissibles",
           arguments: zip(
-        [10, 100, 200, 300, 400, 500],
-        [29, 85, 41, 18, 12, 0]))
+        [10, 100, 200, 300, 400, 500, 1_000, 1_000_000],
+        [29, 109, 131, 120, 92, 69, 33, 0]))
     func addEightNeutronParTickThenCallTickAGivenAmountOfTimesThenCountFissibles(
         ticks: Int, expected: Int) async throws {
 
@@ -262,6 +262,27 @@ struct BusinessServiceUnitTests {
 
         // Act.
         let actual: Int = service.fissibleCount
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Create a new system, add 8 neutrons per ticks, repeat a given amout of times, then count the energy",
+          arguments: zip(
+        [10, 100, 200, 300, 400, 500, 1_000, 1_000_000],
+        [0.02900000, 0.16600016, 0.2680001, 0.34299913, 0.41399822, 0.48199734, 0.897992, 0.9989907]))
+    func addEightNeutronParTickThenCallTickAGivenAmountOfTimesThenCountEnergy(
+        ticks: Int, expectedEnergy: Float) async throws {
+
+        // Arrange.
+        let expected: Energy = try Energy(expectedEnergy)
+        for _ in 1...ticks {
+            try service.addNeutron(8)
+            service.tick()
+        }
+
+        // Act.
+        let actual: Energy = service.getEnergy()
 
         // Assert.
         #expect(actual == expected)

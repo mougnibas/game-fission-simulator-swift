@@ -19,6 +19,9 @@ public class BusinessService: CustomStringConvertible {
     /// All fissibles of the class.
     private var fissibles: [Fissible] = [ Fissible() ]
 
+    /// Fissible too small to be fissed again.
+    private var toRecycle: [Fissible] = []
+
     /// Energy inside the system.
     private var energy: Energy = Energy()
 
@@ -87,6 +90,9 @@ public class BusinessService: CustomStringConvertible {
     /// This is a classic feature in game engine.
     public func tick() {
 
+        // Recycle smaller fissible, if any.
+        recycle()
+
         // Increment tick counter
         _tickCount += 1
 
@@ -98,6 +104,7 @@ public class BusinessService: CustomStringConvertible {
 
             // Get this fissible
             if let fissible = fissibles.randomElement(using: &randomNumberGenerator) {
+
                 do {
                     // Try to fiss it
                     let fissionProduct: FissionProduct? = try fissible.tryToFiss(&randomNumberGenerator)
@@ -115,13 +122,43 @@ public class BusinessService: CustomStringConvertible {
                         energy = try Energy(energy.value + fissionProduct!.energy.value)
                     }
                 } catch {
+
                     // Can't fiss it because it's already too small.
-                    // Just drop it from the system and "restore" the neutron.
-                    // TODO OR add it into a "recycle" array, then make a bigger fissible from smaller ones.
-                    fissibles.remove(at: fissibles.firstIndex(of: fissible)!)
+                    // "Restore" the neutron, remove the fissible, then add the too small fissible to recycle.
+
+                    // Restore the neutron.
                     neutronCount += 1
+
+                    // Remove the fissible.
+                    fissibles.remove(at: fissibles.firstIndex(of: fissible)!)
+
+                    // Add to recycle.
+                    toRecycle.append(fissible)
                 }
             }
+        }
+    }
+
+    // Recycle smaller fissibles into a single bigger one, if any.
+    private func recycle() {
+
+        // If there us something to recycle.
+        if toRecycle.count >= 2 {
+
+            // Compute the mass of the smaller fissibles.
+            var newMass: Float = 0
+            for fissible in toRecycle {
+                newMass += fissible.mass.value
+            }
+
+            // Try to create a bigger fissible.
+            let newFissible = Fissible(Mass(unsafeValue: newMass))
+
+            // Add it to the fissibles.
+            fissibles.append(newFissible)
+
+            // Remove the smaller ones.
+            toRecycle.removeAll()
         }
     }
 }
