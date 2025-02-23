@@ -23,7 +23,7 @@ public struct Energy: CustomStringConvertible, Equatable {
     public init() {
 
         // Call the private constructor
-        self.init(value: 0.0)
+        self.init(unsafeValue: 0.0)
     }
 
     /// Initialize the struct with the given value.
@@ -38,17 +38,17 @@ public struct Energy: CustomStringConvertible, Equatable {
         }
 
         // Call the private constructor
-        self.init(value: value)
+        self.init(unsafeValue: value)
     }
 
     /// Initialize the struct without any safety check.
     ///
     /// - Parameters :
-    ///   - value : The value (any float is valid).
-    private init (value: Float) {
+    ///   - unsafeValue : The value (any float is valid).
+    public init (unsafeValue: Float) {
 
         // Set the internal value.
-        self.value = value
+        value = unsafeValue
 
         // Set "formated".
         formated = value.formatted(
