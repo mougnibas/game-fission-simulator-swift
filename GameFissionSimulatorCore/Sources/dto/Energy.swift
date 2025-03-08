@@ -30,11 +30,11 @@ public struct Energy: CustomStringConvertible, Equatable {
     ///
     /// - Parameters :
     ///   - value : The value of the energy, between 0.0 and 1.0.
-    public init( _ value: Float) throws {
+    public init( _ value: Float) throws(InvalidInputError) {
 
         // Test if the value is between 0.0 and 1.0.
         if value < 0.0 || value > 1.0 {
-            throw AppError(kind: .invalidInput, message: "Energie value must be between 0.0 and 1.0.")
+            throw InvalidInputError("Energie value must be between 0.0 and 1.0.")
         }
 
         // Call the private constructor
