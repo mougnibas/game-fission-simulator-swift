@@ -166,14 +166,14 @@ struct BusinessServiceUnitTests {
     func addingZeroNeutronShouldRiseAnError() throws {
 
         // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try service.addNeutron(0) }
+        #expect(throws: (TooSmallError).self) { try service.addNeutron(0) }
     }
 
     @Test("Add negative neutron should rise an error")
     func addingNegativeNeutronShouldRiseAnError() throws {
 
         // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try service.addNeutron(-1) }
+        #expect(throws: (TooSmallError).self) { try service.addNeutron(-1) }
     }
 
     @Test("Create a new system, add 8 neutrons, call tick, then count the fissibles")

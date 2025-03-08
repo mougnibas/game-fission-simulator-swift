@@ -134,6 +134,6 @@ struct FissibleUnitTests {
         let fissible: Fissible = Fissible(try Mass(Float.leastNonzeroMagnitude))
 
         // Act and Assert
-        #expect(throws: (any Error).self) { try fissible.tryToFiss(&rng) }
+        #expect(throws: (TooSmallError).self) { try fissible.tryToFiss(&rng) }
     }
 }

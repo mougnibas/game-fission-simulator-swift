@@ -103,7 +103,7 @@ struct MassUnitTests {
     func fullConstructorWithThisValueShouldThrowError(_ value: Float) throws {
 
         // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try Mass(value) }
+        #expect(throws: (InvalidInputError).self) { try Mass(value) }
     }
 
     @Test("Equals", arguments: zip(

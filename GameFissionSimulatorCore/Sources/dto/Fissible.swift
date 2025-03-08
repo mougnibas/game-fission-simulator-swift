@@ -52,7 +52,7 @@ public struct Fissible: CustomStringConvertible, Equatable {
     /// - Throws : An error if fission is a success, but result in a way too smaller fissible.
     ///
     /// - Returns : `FissionProduct`if fission is a success, `nil` otherwise.
-    public func tryToFiss(_ rng: inout RandomNumberGenerator) throws -> FissionProduct? {
+    public func tryToFiss(_ rng: inout RandomNumberGenerator) throws(TooSmallError) -> FissionProduct? {
 
         // Create an empty reference.
         var fissionProduct: FissionProduct?
@@ -75,7 +75,7 @@ public struct Fissible: CustomStringConvertible, Equatable {
                     try Energy(Fissible.energyValue))
             } catch {
                 // Something really go wrong here.
-                throw AppError(kind: .tooSmall, message: "This will result in a too small fissible")
+                throw TooSmallError("This will result in a too small fissible")
             }
         }
 

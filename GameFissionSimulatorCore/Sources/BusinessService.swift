@@ -65,9 +65,9 @@ public class BusinessService: CustomStringConvertible {
     /// - Parameter positiveCount : The number (positive) of neutrons to add to the system.
     ///
     /// - throws : An error if `positiveCount` is less or equals to 0.
-    public func addNeutron(_ positiveCount: Int) throws {
+    public func addNeutron(_ positiveCount: Int) throws(TooSmallError) {
         if positiveCount <= 0 {
-            throw AppError(kind: .tooSmall, message: "Only positive integer are allowed")
+            throw TooSmallError("Only positive integer are allowed")
         }
         neutronCount += positiveCount
     }

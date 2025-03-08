@@ -103,7 +103,7 @@ struct EnergyUnitTests {
     func fullConstructorWithThisValueShouldThrowError(_ value: Float) throws {
 
         // Arrange, Act and Assert
-        #expect(throws: (any Error).self) { try Energy(value) }
+        #expect(throws: (InvalidInputError).self) { try Energy(value) }
     }
 
     @Test("Equals", arguments: zip(
