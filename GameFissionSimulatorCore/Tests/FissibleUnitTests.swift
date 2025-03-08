@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "Fissible" struct.
+/// Unit tests of ``Fissible`` struct.
 @Suite("Fissible unit test")
 struct FissibleUnitTests {
 

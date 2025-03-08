@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "Mass" struct.
+/// Unit tests of ``Mass` struct.
 @Suite("Mass unit test")
 struct MassUnitTests {
 

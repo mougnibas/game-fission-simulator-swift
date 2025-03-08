@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "FixedRandomNumberGenerator" class.
+/// Unit tests of ``FixedRandomNumberGenerator`` class.
 @Suite("FixedRandomNumberGenerator unit test")
 struct RandomNumberGeneratorWithSeedUnitTest {
 

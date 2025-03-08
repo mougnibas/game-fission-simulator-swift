@@ -9,7 +9,7 @@ import Foundation
 import Testing
 @testable import GameFissionSimulatorCore
 
-/// Unit tests of "Energy" struct.
+/// Unit tests of ``Energy`` struct.
 @Suite("Energy unit test")
 struct EnergyUnitTests {
 

@@ -43,15 +43,15 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
     /// Try to fiss this fissible.
     ///
     /// It has a fixed probability to happen.
-    /// If it happen, it will release a `FissionProduct`, containing two smaller fissible
-    /// and some energy (and the original `Fissible` is destroyed).
+    /// If it happen, it will release a ``FissionProduct``, containing two smaller fissible
+    /// and some energy (and the original ``Fissible`` is destroyed).
     /// If it not, then nothing happen.
     ///
     /// - Parameter rng ; The random number generator to use.
     ///
     /// - Throws : An error if fission is a success, but result in a way too smaller fissible.
     ///
-    /// - Returns : `FissionProduct`if fission is a success, `nil` otherwise.
+    /// - Returns : ``FissionProduct``if fission is a success, `nil` otherwise.
     public func tryToFiss(_ rng: inout RandomNumberGenerator) throws(TooSmallError) -> FissionProduct? {
 
         // Create an empty reference.
@@ -86,8 +86,8 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
     /// Try to fiss this fissible.
     /// 
     /// It has a fixed probability to happen.
-    /// If it happen, it will release a `FissionProduct`, containing two smaller fissible
-    /// and some energy (and the original `Fissible` is destroyed).
+    /// If it happen, it will release a ``FissionProduct``, containing two smaller fissible
+    /// and some energy (and the original ``Fissible`` is destroyed).
     /// If it not, then nothing happen.
     ///
     /// - Throws : An error if fission is a success, but result in a way too smaller fissible.

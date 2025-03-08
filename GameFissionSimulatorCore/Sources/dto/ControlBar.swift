@@ -63,11 +63,13 @@ public struct ControlBar: CustomStringConvertible {
     /// - Parameter value : The value of the control bar.
     /// 0.0 mean the bar is can not consume neutron (fully pulled from the system).
     /// 1.0 mean the bar is fully inserted and consume all neutron it can absorb (fully pushed into the system).
-    public init(_ value: Float) throws {
+    ///
+    /// - throws : ``InvalidInputError`` if `value` is not between 0.0 and 1.0.
+    public init(_ value: Float) throws(InvalidInputError) {
 
         // Test if the value is between 0.0 and 1.0.
         if value < ControlBar.minValue || value > ControlBar.maxValue {
-            throw AppError(kind: .invalidInput, message: "ControlBar value must be between 0.0 and 1.0.")
+            throw InvalidInputError("ControlBar value must be between 0.0 and 1.0.")
         }
 
         // Use the internal constructor.

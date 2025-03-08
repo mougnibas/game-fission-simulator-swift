@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A private implementation for a RandomNumberGenerator, to be used with unit tests.
+/// A private implementation for a ``RandomNumberGenerator``, to be used with unit tests.
 public class FixedRandomNumberGenerator: RandomNumberGenerator {
 
     /// Fixed values of "randomness" (not random at all).
