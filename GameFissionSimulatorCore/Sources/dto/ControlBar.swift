@@ -114,7 +114,7 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
     /// - parameter input : The input neutron(s) to filter.
     ///
     /// - returns : The filtered output neutron(s).
-    public func filter(input: [Neutron]) -> [Neutron] {
+    public func filter(_ input: [Neutron]) -> [Neutron] {
         // TODO Write this method. And test it.
         return []
     }
