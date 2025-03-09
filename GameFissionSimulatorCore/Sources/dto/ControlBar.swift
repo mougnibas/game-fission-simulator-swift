@@ -12,19 +12,19 @@ import Foundation
 /// It is used to consome neutron inside a system.
 /// The more the bar is inside the system, the more it will consume neutrons.
 /// Pushing or pulling the bar from the system can control the fission reaction.
-public struct ControlBar: CustomStringConvertible {
+public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
 
     /// Minimal "move" mouvement value.
-    private static let moveValue: Float = 0.01
+    private static let moveValue: Int = 1
 
     /// Minimal value (fully pulled).
-    private static let minValue: Float = 0.0
+    private static let minValue: Int = 0
 
     /// Maximal value (fully pushed).
-    private static let maxValue: Float = 1.0
+    private static let maxValue: Int = 100
 
     /// The  value of the mass.
-    public var value: Float
+    public var value: Int
 
     /// A formated representation of the value.
     public let valueFormated: String
@@ -35,7 +35,7 @@ public struct ControlBar: CustomStringConvertible {
     /// Initiallise the control bar from unsafe values.
     ///
     /// - Parameter unsafeValue : Unsafe value to be use.
-    private init (unsafeValue: Float) {
+    internal init (unsafeValue: Int) {
 
         // Set the internal value.
         self.value = unsafeValue
@@ -45,7 +45,7 @@ public struct ControlBar: CustomStringConvertible {
             .number
                 .grouping(.automatic)
                 .locale(Locale(identifier: "en_US_POSIX"))
-                .precision(.integerAndFractionLength(integer: 1, fraction: 8)))
+                .precision(.integerLength(3)))
 
         // Set "description".
         description = "ControlBar(value='\(valueFormated)')"
@@ -53,23 +53,23 @@ public struct ControlBar: CustomStringConvertible {
 
     /// Initialize the control bar at a default state.
     ///
-    /// Default state will be "fully pulled" (0.0 value).
+    /// Default state will be "fully pulled" (0 value).
     public init() {
-        self.init(unsafeValue: 0.0)
+        self.init(unsafeValue: 0)
     }
 
     /// Initialize the control bar.
     ///
     /// - Parameter value : The value of the control bar.
-    /// 0.0 mean the bar is can not consume neutron (fully pulled from the system).
-    /// 1.0 mean the bar is fully inserted and consume all neutron it can absorb (fully pushed into the system).
+    /// 0 mean the bar is can not consume neutron (fully pulled from the system).
+    /// 100 mean the bar is fully inserted and consume all neutron it can absorb (fully pushed into the system).
     ///
     /// - throws : ``InvalidInputError`` if `value` is not between 0.0 and 1.0.
-    public init(_ value: Float) throws(InvalidInputError) {
+    public init(_ value: Int) throws(InvalidInputError) {
 
         // Test if the value is between 0.0 and 1.0.
         if value < ControlBar.minValue || value > ControlBar.maxValue {
-            throw InvalidInputError("ControlBar value must be between 0.0 and 1.0.")
+            throw InvalidInputError("ControlBar value must be between 0 and 100.")
         }
 
         // Use the internal constructor.
@@ -98,5 +98,15 @@ public struct ControlBar: CustomStringConvertible {
         if value < ControlBar.minValue {
             value = ControlBar.minValue
         }
+    }
+
+    public static func == (lhs: ControlBar, rhs: ControlBar) -> Bool {
+        let result: Bool = lhs.value == rhs.value
+        return result
+    }
+
+    public static func != (lhs: ControlBar, rhs: ControlBar) -> Bool {
+        let result: Bool = lhs.value != rhs.value
+        return result
     }
 }
