@@ -8,13 +8,13 @@
 import Foundation
 
 /// Business service class.
-public class BusinessService: CustomStringConvertible {
+public actor BusinessService: CustomStringConvertible {
 
     /// Random number generator to use.
     private var randomNumberGenerator: RandomNumberGenerator
 
     /// A string description of the class.
-    public var description: String
+    public let description: String
 
     /// All fissibles of the class.
     private var fissibles: [Fissible] = [ Fissible() ]
@@ -42,7 +42,7 @@ public class BusinessService: CustomStringConvertible {
     }
 
     /// Initialize the class with a default random number generator.
-    public convenience init() {
+    public init() {
         self.init(SystemRandomNumberGenerator())
     }
 

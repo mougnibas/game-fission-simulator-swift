@@ -8,7 +8,7 @@
 import Foundation
 
 /// Energy released when fission occured.
-public struct Energy: CustomStringConvertible, Equatable {
+public struct Energy: CustomStringConvertible, Equatable, Sendable {
 
     /// The  value of the mass.
     public let value: Float

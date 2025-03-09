@@ -8,7 +8,7 @@
 import Foundation
 
 /// A mass, between 0.0 and 1.0.
-public struct Mass: CustomStringConvertible, Equatable {
+public struct Mass: CustomStringConvertible, Equatable, Sendable {
 
     /// The  value of the mass.
     public let value: Float
