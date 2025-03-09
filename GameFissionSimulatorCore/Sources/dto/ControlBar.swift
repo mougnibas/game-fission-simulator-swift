@@ -23,6 +23,9 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
     /// Maximal value (fully pushed).
     private static let maxValue: Int = 100
 
+    /// Maximum amount of neutron the control bar can consume when fully pushed.
+    public static let maxConsummableNeutron: Int = 1_000
+
     /// The  value of the mass.
     public var value: Int
 
@@ -98,6 +101,22 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
         if value < ControlBar.minValue {
             value = ControlBar.minValue
         }
+    }
+
+    /// Consume input neutron(s), then output neutron(s).
+    ///
+    /// Depending of the state the control bar (fully pushed, fullled pulled, half pushed, etc.) the control bar will
+    /// consome a certain amount of neutrons, then will output another amount of neutrons.
+    /// Fully pulled control bar will not consume any neutron.
+    /// Fully pushed control bar will consume the maximum possible (``maxConsummableNeutron``)
+    /// neutrons available in input.
+    ///
+    /// - parameter input : The input neutron(s) to filter.
+    ///
+    /// - returns : The filtered output neutron(s).
+    public func filter(input: [Neutron]) -> [Neutron] {
+        // TODO Write this method. And test it.
+        return []
     }
 
     public static func == (lhs: ControlBar, rhs: ControlBar) -> Bool {
