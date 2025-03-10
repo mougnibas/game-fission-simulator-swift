@@ -119,27 +119,27 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
         // Filtered neutron to return.
         var filtered: [Neutron] = []
 
-        if value == ControlBar.minValue {
+        // Act differently according to value (fully pulled, fully push or between).
+        switch value {
 
-            // If control bar is fully pulled, it can't absorb any neutron.
+        // If control bar is fully pulled, it can't absorb any neutron.
+        case ControlBar.minValue:
             filtered = input
 
-        } else if value == ControlBar.maxValue {
-
-            // If control bar is fully pushed, it can absorb max consummable neutrons.
+        // If control bar is fully pushed, it can absorb max consummable neutrons.
+        case ControlBar.maxValue:
             let consumed: Int = ControlBar.maxConsummableNeutron
             let newAmount = input.count - consumed
             filtered = Array(input[0..<newAmount])
 
-        } else {
-
-            // If control bar is between any fully pulled or fully pushed state,
-            // compute the consummable neutrons, then consume then.
+        // If control bar is between any fully pulled or fully pushed state,
+        // compute the consummable neutrons, then consume then.
+        default:
             let consumed: Int = Int(
                 ceil(
-                    Double(ControlBar.maxConsummableNeutron)
-                    *
-                    Double(value) / Double(ControlBar.maxValue)
+                    Double(ControlBar.maxConsummableNeutron) * Double(value)
+                    /
+                    Double(ControlBar.maxValue)
                 )
             )
             let newAmount = input.count - consumed
