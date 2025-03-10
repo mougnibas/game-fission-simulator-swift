@@ -66,7 +66,7 @@ public actor BusinessService: CustomStringConvertible {
     ///
     /// - throws : An error if `positiveCount` is less or equals to 0.
     public func addNeutron(_ positiveCount: Int) throws(TooSmallError) {
-        if positiveCount <= 0 {
+        guard positiveCount > 0 else {
             throw TooSmallError("Only positive integer are allowed")
         }
         neutronCount += positiveCount

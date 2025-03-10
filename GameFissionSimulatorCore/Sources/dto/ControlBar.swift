@@ -71,7 +71,7 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
     public init(_ value: Int) throws(InvalidInputError) {
 
         // Test if the value is between 0.0 and 1.0.
-        if value < ControlBar.minValue || value > ControlBar.maxValue {
+        guard value >= ControlBar.minValue && value <= ControlBar.maxValue else {
             throw InvalidInputError("ControlBar value must be between 0 and 100.")
         }
 

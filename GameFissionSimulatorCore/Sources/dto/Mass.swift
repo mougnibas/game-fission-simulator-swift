@@ -33,7 +33,7 @@ public struct Mass: CustomStringConvertible, Equatable, Sendable {
     public init( _ value: Float) throws(InvalidInputError) {
 
         // Test if the value is between 0.0 and 1.0.
-        if value < 0.0 || value > 1.0 {
+        guard value >= 0.0 && value <= 1.0 else {
             throw InvalidInputError("Mass value must be between 0.0 and 1.0.")
         }
 
