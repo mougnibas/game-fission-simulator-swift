@@ -267,8 +267,8 @@ struct ControlBarUnitTests {
 
     @Test("constructor with upper limit value, then filter a given amout, then it should be another amount)",
           arguments: zip(
-    [1_000, 2_000],
-    [0, 1_000]))
+    [1_000, 2_000, 3_000, 1_234],
+    [0_000, 1_000, 2_000, 0_234]))
     func useConstructorWithUpperLimitValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
         numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
 
@@ -285,11 +285,31 @@ struct ControlBarUnitTests {
         #expect(actual == expected)
     }
 
+    @Test("constructor with third value, then filter a given amout, then it should be another amount)",
+          arguments: zip(
+    [1_000, 2_000, 3_000, 0_500, 0_700],
+    [0_670, 1_670, 2_670, 0_170, 0_370]))
+    func useConstructorWithThirdValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
+        numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
+
+        // Arrange.
+        let expected: Int = numberOfOutputNeutrons
+        let bar: ControlBar = try .init(33)
+        let input: [Neutron] = Array(repeating: .init(), count: numberOfInputNeutrons)
+
+        // Act.
+        let output: [Neutron] = bar.filter(input)
+        let actual: Int = output.count
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
     @Test("constructor with half value, then filter a given amout, then it should be another amount)",
           arguments: zip(
-    [1_000, 2_000],
-    [500, 1_500]))
-    func useConstructorWithHalftValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
+    [1_000, 2_000, 3_000, 0_500, 0_700],
+    [0_500, 1_500, 2_500, 0_000, 0_200]))
+    func useConstructorWithHalfValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
         numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
 
         // Arrange.
