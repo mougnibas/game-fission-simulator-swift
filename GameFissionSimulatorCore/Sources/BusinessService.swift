@@ -33,13 +33,8 @@ public actor BusinessService: CustomStringConvertible {
         fissibles.count
     }
 
-    /// Internal tick counter.
-    private var _tickCount: Int = 0
-
     /// Public read only counter of ticks.
-    public var tickCount: Int {
-        _tickCount
-    }
+    private(set) var tickCount: Int = 0
 
     /// Initialize the class with a default random number generator.
     public init() {
@@ -94,7 +89,7 @@ public actor BusinessService: CustomStringConvertible {
         recycle()
 
         // Increment tick counter
-        _tickCount += 1
+        tickCount += 1
 
         // For each neutron, try to fiss a random fissible.
         for _ in 0..<neutronCount {

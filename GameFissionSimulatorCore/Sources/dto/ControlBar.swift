@@ -27,7 +27,7 @@ public struct ControlBar: CustomStringConvertible, Equatable, Sendable {
     public static let maxConsummableNeutron: Int = 1_000
 
     /// The  value of the mass.
-    public var value: Int
+    private(set) var value: Int
 
     /// A formated representation of the value.
     public let valueFormated: String
