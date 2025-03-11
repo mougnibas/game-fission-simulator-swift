@@ -255,11 +255,11 @@ struct ControlBarUnitTests {
         // Arrange.
         let expected: Int = 0
         let bar: ControlBar = try .init(100)
-        let input: [Neutron] = Array(repeating: .init(), count: 1_000)
+        let input: Int = 1_000
 
         // Act.
-        let output: [Neutron] = bar.filter(input)
-        let actual: Int = output.count
+        let output: Int = bar.filter(input)
+        let actual: Int = output
 
         // Assert.
         #expect(actual == expected)
@@ -275,11 +275,11 @@ struct ControlBarUnitTests {
         // Arrange.
         let expected: Int = numberOfOutputNeutrons
         let bar: ControlBar = try .init(100)
-        let input: [Neutron] = Array(repeating: .init(), count: numberOfInputNeutrons)
+        let input: Int = numberOfInputNeutrons
 
         // Act.
-        let output: [Neutron] = bar.filter(input)
-        let actual: Int = output.count
+        let output: Int = bar.filter(input)
+        let actual: Int = output
 
         // Assert.
         #expect(actual == expected)
@@ -292,17 +292,17 @@ struct ControlBarUnitTests {
     func useConstructorWithThirdValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
         numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
 
-        // Arrange.
-        let expected: Int = numberOfOutputNeutrons
-        let bar: ControlBar = try .init(33)
-        let input: [Neutron] = Array(repeating: .init(), count: numberOfInputNeutrons)
+            // Arrange.
+            let expected: Int = numberOfOutputNeutrons
+            let bar: ControlBar = try .init(33)
+            let input: Int = numberOfInputNeutrons
 
-        // Act.
-        let output: [Neutron] = bar.filter(input)
-        let actual: Int = output.count
+            // Act.
+            let output: Int = bar.filter(input)
+            let actual: Int = output
 
-        // Assert.
-        #expect(actual == expected)
+            // Assert.
+            #expect(actual == expected)
     }
 
     @Test("constructor with half value, then filter a given amout, then it should be another amount)",
@@ -312,17 +312,17 @@ struct ControlBarUnitTests {
     func useConstructorWithHalfValueThenFilterAGivenAmountThenItShouldBeThisAnotherAmount(
         numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
 
-        // Arrange.
-        let expected: Int = numberOfOutputNeutrons
-        let bar: ControlBar = try .init(50)
-        let input: [Neutron] = Array(repeating: .init(), count: numberOfInputNeutrons)
+            // Arrange.
+            let expected: Int = numberOfOutputNeutrons
+            let bar: ControlBar = try .init(50)
+            let input: Int = numberOfInputNeutrons
 
-        // Act.
-        let output: [Neutron] = bar.filter(input)
-        let actual: Int = output.count
+            // Act.
+            let output: Int = bar.filter(input)
+            let actual: Int = output
 
-        // Assert.
-        #expect(actual == expected)
+            // Assert.
+            #expect(actual == expected)
     }
 
     @Test("constructor with bottom limit, then filter a given amout, then it should be same amount)",
@@ -332,14 +332,30 @@ struct ControlBarUnitTests {
     func useConstructorWithBottomLimitValueThenFilterAGivenAmountThenItShouldBeTheSameAmount(
         numberOfInputNeutrons: Int, numberOfOutputNeutrons: Int) throws {
 
+            // Arrange.
+            let expected: Int = numberOfOutputNeutrons
+            let bar: ControlBar = try .init(0)
+            let input: Int = numberOfInputNeutrons
+
+            // Act.
+            let output: Int = bar.filter(input)
+            let actual: Int = output
+
+            // Assert.
+            #expect(actual == expected)
+    }
+
+    @Test("constructor default, then filter a negative amount should return zero")
+    func useConstructorDefaultThenFilterNegativeAmountShouldReturnZero() throws {
+
         // Arrange.
-        let expected: Int = numberOfOutputNeutrons
+        let expected: Int = 0
         let bar: ControlBar = try .init(0)
-        let input: [Neutron] = Array(repeating: .init(), count: numberOfInputNeutrons)
+        let input: Int = -1
 
         // Act.
-        let output: [Neutron] = bar.filter(input)
-        let actual: Int = output.count
+        let output: Int = bar.filter(input)
+        let actual: Int = output
 
         // Assert.
         #expect(actual == expected)
