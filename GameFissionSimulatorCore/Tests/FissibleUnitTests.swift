@@ -120,20 +120,9 @@ struct FissibleUnitTests {
         let fissible: Fissible = try Fissible(Mass(1.0))
 
         // Act.
-        let actual: Bool = try fissible.tryToFiss(&rng) != nil
+        let actual: Bool = fissible.tryToFiss(&rng) != nil
 
         // Assert.
         #expect(actual == expected)
-    }
-
-    @Test("Try to fiss a too small fissible should result in an error")
-    func shouldThrowAnError() throws {
-
-        // Arrange.
-        var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
-        let fissible: Fissible = Fissible(try Mass(Float.leastNonzeroMagnitude))
-
-        // Act and Assert
-        #expect(throws: (TooSmallError).self) { try fissible.tryToFiss(&rng) }
     }
 }

@@ -49,10 +49,8 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
     ///
     /// - Parameter rng ; The random number generator to use.
     ///
-    /// - Throws : An error if fission is a success, but result in a way too smaller fissible.
-    ///
     /// - Returns : ``FissionProduct``if fission is a success, `nil` otherwise.
-    public func tryToFiss(_ rng: inout RandomNumberGenerator) throws(TooSmallError) -> FissionProduct? {
+    public func tryToFiss(_ rng: inout RandomNumberGenerator) -> FissionProduct? {
 
         // Create an empty reference.
         var fissionProduct: FissionProduct?
@@ -63,20 +61,8 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
         // Is it a success ?
         if roll <= Fissible.probability {
 
-            // Compute the new mass value.
-            let newMassValue: Float = (mass.value / 2.0) - (Fissible.energyValue / 2.0)
-
-            // Try to create a fission product.
-            do {
-                // Create the two smaller fissible and the energy released.
-                fissionProduct = FissionProduct(
-                    Fissible(try Mass(newMassValue)),
-                    Fissible(try Mass(newMassValue)),
-                    try Energy(Fissible.energyValue))
-            } catch {
-                // Something really go wrong here.
-                throw TooSmallError("This will result in a too small fissible")
-            }
+            // Create a fission product.
+            fissionProduct = FissionProduct(Energy( unsafeValue: Fissible.energyValue))
         }
 
         // Return the result.
@@ -90,8 +76,6 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
     /// and some energy (and the original ``Fissible`` is destroyed).
     /// If it not, then nothing happen.
     ///
-    /// - Throws : An error if fission is a success, but result in a way too smaller fissible.
-    ///
     /// - Returns : `FissionProduct`if fission is a success, `nil` otherwise.
     public func tryToFiss() throws -> FissionProduct? {
 
@@ -99,7 +83,7 @@ public struct Fissible: CustomStringConvertible, Equatable, Sendable {
         var rng: RandomNumberGenerator = SystemRandomNumberGenerator()
 
         // Delegate the call.
-        let fissionProduct: FissionProduct? = try tryToFiss(&rng)
+        let fissionProduct: FissionProduct? = tryToFiss(&rng)
 
         // Return the result.
         return fissionProduct

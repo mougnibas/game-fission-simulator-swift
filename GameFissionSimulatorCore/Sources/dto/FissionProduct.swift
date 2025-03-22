@@ -10,17 +10,11 @@ import Foundation
 /// The product of a a fissible nucleous.
 public struct FissionProduct: CustomStringConvertible {
 
-    /// A smaller fissible (A).
-    public let fissibleA: Fissible
-
-    /// A smaller fissible (B).
-    public let fissibleB: Fissible
-
     /// Released energy.
     public let energy: Energy
 
     /// Neutrons created.
-    public let neutron: [ Neutron ]
+    public let neutronCount: Int
 
     /// A string description of the class.
     public let description: String
@@ -28,18 +22,14 @@ public struct FissionProduct: CustomStringConvertible {
     /// Fully initialize the struct.
     ///
     /// - Parameters :
-    ///  - fissibleA : The first fiisssible.
-    ///  - fissibleB : The second fissible.
     ///  - energy: The released energy.
-    public init(_ fissibleA: Fissible, _ fissibleB: Fissible, _ energy: Energy) {
+    public init(_ energy: Energy) {
 
         // Set all members, except the calculated one (description).
-        self.fissibleA = fissibleA
-        self.fissibleB = fissibleB
         self.energy = energy
-        self.neutron = [ Neutron(), Neutron(), Neutron()]
+        self.neutronCount = 3
 
         // Create the description
-        description = "FissionProduct(fissibleA='\(fissibleA)', fissibleB='\(fissibleB)', energy='\(energy)')"
+        description = "FissionProduct(energy='\(energy)', neutronCount='\(neutronCount)')"
     }
 }

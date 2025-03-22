@@ -180,7 +180,7 @@ struct BusinessServiceUnitTests {
     func addEightNeutronsThenCallTickThenCountFissible() async throws {
 
         // Arrange.
-        let expected: Int = 2
+        let expected: Int = 0
         for _ in 1...8 {
             await service.addNeutron()
         }
@@ -230,8 +230,8 @@ struct BusinessServiceUnitTests {
     @Test("Create a new system, add a few neutrons and call ticks a few times, then count the energy", arguments: zip(
     [10,
      20],
-    [try Energy(0.002),
-     try Energy(0.01)]))
+    [try Energy(0.001),
+     try Energy(0.001)]))
     func addNeutronAndCallTickAFewTimesThenCountEnergy(ticks: Int, expected: Energy) async throws {
 
         // Arrange.
@@ -250,7 +250,7 @@ struct BusinessServiceUnitTests {
     @Test("Create a new system, add 8 neutrons per ticks, repeat a given amout of times, then count the fissibles",
           arguments: zip(
         [10, 100, 200, 300, 400, 500, 1_000, 1_000_000],
-        [29, 109, 131, 120, 92, 69, 33, 0]))
+        [00, 000, 000, 000, 000, 000, 0_000, 0_000_000]))
     func addEightNeutronParTickThenCallTickAGivenAmountOfTimesThenCountFissibles(
         ticks: Int, expected: Int) async throws {
 
@@ -270,7 +270,7 @@ struct BusinessServiceUnitTests {
     @Test("Create a new system, add 8 neutrons per ticks, repeat a given amout of times, then count the energy",
           arguments: zip(
         [10, 100, 200, 300, 400, 500, 1_000, 1_000_000],
-        [0.02900000, 0.16600016, 0.2680001, 0.34299913, 0.41399822, 0.48199734, 0.897992, 0.9989907]))
+        [0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001]))
     func addEightNeutronParTickThenCallTickAGivenAmountOfTimesThenCountEnergy(
         ticks: Int, expectedEnergy: Float) async throws {
 
@@ -306,12 +306,12 @@ struct BusinessServiceUnitTests {
         #expect(actual == expected)
     }
 
-    @Test("We should have exactly 4 fissibles in the system after this exact count")
+    @Test("We should have exactly 0 fissibles in the system after this exact count")
     func addEightNeutronParTickThenCallTickThisExactAmountOfTimesShouldBeFour() async throws {
 
         // Arrange.
         let ticks: Int = 1_139
-        let expected: Int = 4
+        let expected: Int = 0
         for _ in 1...ticks {
             try await service.addNeutron(8)
             await service.tick()
@@ -347,7 +347,7 @@ struct BusinessServiceUnitTests {
 
         // Arrange.
         let ticks: Int = 1_141
-        let expected: Energy = Energy(unsafeValue: 0.9989907)
+        let expected: Energy = Energy(unsafeValue: 0.001)
         for _ in 1...ticks {
             try await service.addNeutron(8)
             await service.tick()
