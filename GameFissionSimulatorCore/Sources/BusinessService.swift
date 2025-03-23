@@ -7,43 +7,51 @@
 
 import Foundation
 
-/// Business service class.
+/// Business service actor.
 public actor BusinessService: CustomStringConvertible {
 
-    /// Random number generator to use.
+    /// Private random number generator of the system.
     private var randomNumberGenerator: RandomNumberGenerator
 
-    /// A string description of the class.
-    public let description: String
+    /// Private array of fissibles of the system.
+    private var fissibles: [Fissible]
 
-    /// All fissibles of the class.
-    private var fissibles: [Fissible] = [ Fissible() ]
+    /// Public read-only Energy of the system (write is private).
+    private(set) var energy: Energy = Energy()
 
-    /// Energy inside the system.
-    private var energy: Energy = Energy()
+    /// Public read-only number of neutrons of the system (write is private).
+    private(set) var neutronCount: Int = 0
 
-    /// Number of neutrons inside the system.
-    private var neutronCount: Int = 0
+    /// Public read-only counter of ticks of the system (write is private).
+    private(set) var tickCount: Int = 0
 
-    /// Public read only counter of fissibles.
+    /// Public read-only control bar of the system (write is private).
+    private(set) var controlBar: ControlBar = ControlBar()
+
+    /// Public read-only (computed) counter of fissibles of the system.
     public var fissibleCount: Int {
         fissibles.count
     }
 
-    /// Public read only counter of ticks.
-    private(set) var tickCount: Int = 0
-
-    /// Initialize the class with a default random number generator.
-    public init() {
-        self.init(SystemRandomNumberGenerator())
-    }
+    /// A public string description of the class.
+    public let description: String
 
     /// Initialize the class with a given random number generator.
     ///
     /// - Parameters :
     /// - randomNumberGenerator : The given random number generator (mainly for unit tests).
-    public init( _ randomNumberGenerator: RandomNumberGenerator) {
+    ///                           Default will be a ``SystemRandomNumberGenerator``.
+    /// - numberOfFissibles : The number of fissible inside the system (default will be 0).
+    public init( _ randomNumberGenerator: RandomNumberGenerator = SystemRandomNumberGenerator(),
+                 _ numberOfFissibles: Int = 0) {
+
+        // Set RNG
         self.randomNumberGenerator = randomNumberGenerator
+
+        // Set fissibles
+        fissibles = Array(repeating: Fissible(), count: numberOfFissibles)
+
+        // Set description
         description = "BusinessService()"
     }
 
@@ -64,26 +72,61 @@ public actor BusinessService: CustomStringConvertible {
         neutronCount += positiveCount
     }
 
-    /// Count the  number of neutron(s) inside the system.
-    ///
-    /// - Returns : The number of neutron(s) inside the system.
-    public func countNeutrons() -> Int {
-        return neutronCount
+    /// Pull the control bar.
+    public func pullControlBar() {
+        controlBar.pull()
     }
 
-    /// Get the actual energy in the system.
+    /// Pull the control bar a given amount of time.
     ///
-    /// - Returns : The actual energy in the system.
-    public func getEnergy() -> Energy {
-        return energy
+    /// - Parameter numberOfPush : The number of pull to do (must be between 1 and 100).
+    ///
+    /// - Throws ``InvalidInputError`` If the numberOfPull is not between 1 and 100.
+    public func pullControlBar(_ numberOfPull: Int) throws(InvalidInputError) {
+
+        // Verify parameter.
+        guard numberOfPull >= 1 && numberOfPull <= 100 else {
+            throw InvalidInputError("Only positive integer are allowed (get '\(numberOfPull)'")
+        }
+
+        // Push the control bar a given number of times.
+        for _ in 0..<numberOfPull {
+            pullControlBar()
+        }
+    }
+
+    /// Push the control bar.
+    public func pushControlBar() {
+        controlBar.push()
+    }
+
+    /// Push the control bar a given amount of time.
+    ///
+    /// - Parameter numberOfPush : The number of push to do (must be between 1 and 100).
+    ///
+    /// - Throws ``InvalidInputError`` If the numberOfPush is not between 1 and 100.
+    public func pushControlBar(_ numberOfPush: Int) throws(InvalidInputError) {
+
+        // Verify parameter.
+        guard numberOfPush >= 1 && numberOfPush <= 100 else {
+            throw InvalidInputError("Only positive integer are allowed (get '\(numberOfPush)'")
+        }
+
+        // Push the control bar a given number of times.
+        for _ in 0..<numberOfPush {
+            pushControlBar()
+        }
     }
 
     /// Make something happen.
     /// This is a classic feature in game engine.
     public func tick() {
 
-        // Increment tick counter
+        // Increment tick counter.
         tickCount += 1
+
+        // Filter neutrons.
+        neutronCount = controlBar.filter(neutronCount)
 
         // New neutron count, updated at the end of tick
         var newNeutronCount: Int = 0

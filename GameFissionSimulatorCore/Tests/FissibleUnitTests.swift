@@ -78,7 +78,7 @@ struct FissibleUnitTests {
         var rng: RandomNumberGenerator = FixedRandomNumberGenerator()
 
         // Act.
-        let actual: FissionProduct? = try fissible.tryToFiss(&rng)
+        let actual: FissionProduct? = fissible.tryToFiss(&rng)
 
         // Assert.
         #expect(actual != nil)
