@@ -228,4 +228,125 @@ struct BusinessServiceBasicUnitTests {
         // Assert.
         #expect(actual == expected)
     }
+
+    @Test("Push (a little) the control bar")
+    func pushAControlBarALittle() async throws {
+
+        // Arrange.
+        let expected: Int = 1
+
+        // Act.
+        await service.pushControlBar()
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Half push the control bar")
+    func pushAControlBarHalf() async throws {
+
+        // Arrange.
+        let expected: Int = 50
+
+        // Act.
+        try await service.pushControlBar(50)
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Max push the control bar")
+    func pushAControlBarMax() async throws {
+
+        // Arrange.
+        let expected: Int = 100
+
+        // Act.
+        try await service.pushControlBar(100)
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("0 value push should rise an error")
+    func pushZeroValueShouldRiseAnError() async throws {
+
+        // Arrange, Act and Assert
+        await #expect(throws: (InvalidInputError).self) { try await service.pushControlBar(0) }
+    }
+    
+    @Test("101 value push should rise an error")
+    func pushUndredAndOneValueShouldRiseAnError() async throws {
+
+        // Arrange, Act and Assert
+        await #expect(throws: (InvalidInputError).self) { try await service.pushControlBar(101) }
+    }
+
+    @Test("Pull (a little) the control bar")
+    func pullAControlBarALittle() async throws {
+
+        // Arrange.
+        let expected: Int = 99
+        try await service.pushControlBar(100)
+
+        // Act.
+        await service.pullControlBar()
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Half pull the control bar")
+    func pullAControlBarHalf() async throws {
+
+        // Arrange.
+        let expected: Int = 50
+        try await service.pushControlBar(100)
+
+        // Act.
+        try await service.pullControlBar(50)
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("Max pull the control bar")
+    func pullAControlBarMax() async throws {
+
+        // Arrange.
+        let expected: Int = 0
+        try await service.pushControlBar(100)
+
+        // Act.
+        try await service.pullControlBar(100)
+        let actual: Int = await service.controlBar.value
+
+        // Assert.
+        #expect(actual == expected)
+    }
+
+    @Test("0 value pull should rise an error")
+    func pullZeroValueShouldRiseAnError() async throws {
+
+        // Arrange.
+        try await service.pushControlBar(100)
+
+        // Arrange, Act and Assert
+        await #expect(throws: (InvalidInputError).self) { try await service.pullControlBar(0) }
+    }
+
+    @Test("101 value pull should rise an error")
+    func pullUndredAndOneValueShouldRiseAnError() async throws {
+
+        // Arrange.
+        try await service.pushControlBar(100)
+
+        // Arrange, Act and Assert
+        await #expect(throws: (InvalidInputError).self) { try await service.pullControlBar(101) }
+    }
 }
